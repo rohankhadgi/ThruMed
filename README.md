@@ -857,7 +857,7 @@ Launch a New LocalStack Container with the following envrionment variables:
 - Name: localstack
 - Env Vars:
 	- Name: LOCALSTACK_AUTH_TOKEN
-	- Value: <<localstack-auth-token>>
+	- Value: <em><code>Auth-Token-From-Localstack-Account</code></em>
 
 Leave the rest as it is and Create.
 
