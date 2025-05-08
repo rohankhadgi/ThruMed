@@ -27,7 +27,6 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -36,13 +35,15 @@
 
 ## 📍 Overview
 
-<code>❯ REPLACE-ME</code>
+ThruMed is a Cloud Based Patient Management System Application to manage patient and billing information.
 
 ---
 
 ## 👾 Features
 
-<code>❯ REPLACE-ME</code>
+- ThruMed is highly scalable and can be deployed in the AWS Cloud Environment with minimal effort.
+- ThruMed is built to add more features on future iterations and already has placeholders to support messaging system that can allow fast communication between different microservices.
+- ThruMed has proper security features with isolated database for login credentials and integrated Authorization Token login system for security.
 
 ---
 
@@ -801,8 +802,10 @@
 
 Before getting started with ThruMed, ensure your runtime environment meets the following requirements:
 
-- **Programming Language:** Java
+- **Programming Language:** Java 21
 - **Container Runtime:** Docker
+- **Local Cloud Environment:** Localstack
+- **Development IDE:** IntelliJ IDEA
 
 
 ### ⚙️ Installation
@@ -821,37 +824,66 @@ Install ThruMed using one of the following methods:
 ❯ cd ThruMed
 ```
 
-3. Install the project dependencies:
+2. Clean and Build all project dependencies:
+```sh
+❯ ./infrastructure/rebuild-all.sh
+```
+
+3. Create docker images for all the microservices:
 
 
 **Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
 
 ```sh
-❯ docker build -t rohankhadgi/ThruMed .
+❯ docker build -t <service-name>:latest -f /<service-path/Dockerfile
+```
+
+4. Pull all required docker images:
+
+
+**Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+❯ docker pull localstack/localstack
+❯ docker pull postgres
+❯ docker pull bitnami/kafka
 ```
 
 
-
-
 ### 🤖 Usage
-Run ThruMed using the following command:
-**Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+Launch a New LocalStack Container with the following envrionment variables:
 
+- Name: localstack
+- Env Vars:
+	- Name: LOCALSTACK_AUTH_TOKEN
+	- Value: <localstack-auth-token>
+
+Leave the rest as it is and Create.
+
+Run the LocalStack.java file to generate the localstack.template.json file.
+
+Run the application using the following command:
 ```sh
-❯ docker run -it {image_name}
+❯ ./infrastructure/localstack-deploy.sh
 ```
 
 
 ### 🧪 Testing
-Run the test suite using the following command:
-echo 'INSERT-TEST-COMMAND-HERE'
+- Run all the tests inside the integration-tests/src/test directory
+- Run the HTTP Requests inside the api-requests directory in the following order:
+	- /auth-service/login.http to generate the Authorization Token and save it as a variable
+	- /auth-service/validate.http to validate the Authorization Token
+	- /patient-service/get-patients.http to validate proper execution of data.sql query on patient-service-db container inside patient-service/src/main/resources
+	- /patient-service/create-patient.http to create a new patient
+	- /patient-service/update-patient.http to update an existing patient
+	- /patient-service/delete-patient.http to delete a patient
 
----
-## 📌 Project Roadmap
+Additionally, check the logs in the docker containers using the following command: 
+```sh
+❯ docker logs <service-name>
+```
 
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
+- Run the gRPC Requests inside the grps-requests/billing-service/create-billing-account.http to confirm Kafka Message Broker System functionality
 
 ---
 
@@ -900,12 +932,6 @@ echo 'INSERT-TEST-COMMAND-HERE'
 
 ## 🎗 License
 
-This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
-
----
-
-## 🙌 Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
+This project is protected under the MIT License. For more details, refer to the [LICENSE](https://github.com/rohankhadgi/ThruMed/edit/master/LICENSE.md) file.
 
 ---
