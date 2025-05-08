@@ -36,19 +36,15 @@
 
 ## 📍 Overview
 
-<code>
 ThruMed is a Cloud Based Patient Management System Application to manage patient and billing information.
-</code>
 
 ---
 
 ## 👾 Features
 
-<code>
 - ThruMed is highly scalable and can be deployed in the AWS Cloud Environment with minimal effort.
 - ThruMed is built to add more features on future iterations and already has placeholders to support messaging system that can allow fast communication between different microservices.
 - ThruMed has proper security features with isolated database for login credentials and integrated Authorization Token login system for security.
-</code>
 
 ---
 
