@@ -89,8 +89,8 @@ public class LocalStack extends Stack {
 
     private Vpc createVpc() {
         return Vpc.Builder
-                .create(this, "ThrumiVPC")
-                .vpcName("ThrumiVPC")
+                .create(this, "ThruMedVPC")
+                .vpcName("ThruMedVPC")
                 .maxAzs(2)
                 .build();
     }
