@@ -801,8 +801,10 @@
 
 Before getting started with ThruMed, ensure your runtime environment meets the following requirements:
 
-- **Programming Language:** Java
+- **Programming Language:** Java 21
 - **Container Runtime:** Docker
+- **Local Cloud Environment:** Localstack
+- **Development IDE:** IntelliJ IDEA
 
 
 ### ⚙️ Installation
@@ -821,16 +823,30 @@ Install ThruMed using one of the following methods:
 ❯ cd ThruMed
 ```
 
-3. Install the project dependencies:
+2. Clean and Build all project dependencies:
+```sh
+❯ ./infrastructure/rebuild-all.sh
+```
+
+3. Create docker images for all the microservices:
 
 
 **Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
 
 ```sh
-❯ docker build -t rohankhadgi/ThruMed .
+❯ docker build -t <service-name>:latest -f /<service-path/Dockerfile
 ```
 
+3. Pull all required docker images:
 
+
+**Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+❯ docker pull localstack/localstack
+❯ docker pull postgres
+❯ docker pull bitnami/kafka
+```
 
 
 ### 🤖 Usage
@@ -900,12 +916,6 @@ echo 'INSERT-TEST-COMMAND-HERE'
 
 ## 🎗 License
 
-This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
-
----
-
-## 🙌 Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
+This project is protected under the MIT License. For more details, refer to the [LICENSE](https://github.com/rohankhadgi/ThruMed/edit/master/LICENSE.md) file.
 
 ---
