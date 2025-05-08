@@ -2,12 +2,14 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
+import com.pm.patientservice.exception.DriverLicenseAlreadyExistsException;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
+import com.pm.patientservice.grpc.BillingServiceGrpcClient;
+import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,8 +19,15 @@ import java.util.UUID;
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
+    private final KafkaProducer kafkaProducer;
+
+    public PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer) {
+        this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
+        this.kafkaProducer = kafkaProducer;
+    }
 
     public List<PatientResponseDTO> getAllPatients() {
         List<Patient> patients = patientRepository.findAll();
@@ -31,7 +40,15 @@ public class PatientService {
             throw new EmailAlreadyExistsException("A patient with this email already exists " + patientRequestDTO.getEmail());
         }
 
+        if (patientRepository.existsByDriverLicense(patientRequestDTO.getDriverLicense())) {
+            throw new DriverLicenseAlreadyExistsException("A patient with this driver license exists " + patientRequestDTO.getDriverLicense());
+        }
+
         Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+
+        billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getName(), newPatient.getEmail(), newPatient.getDriverLicense());
+
+        kafkaProducer.sendEvent(newPatient);
 
         return PatientMapper.toDTO(newPatient);
     }
@@ -40,8 +57,12 @@ public class PatientService {
 
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
 
-        if (patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+        if (patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(), id)) {
             throw new EmailAlreadyExistsException("A patient with this email already exists " + patientRequestDTO.getEmail());
+        }
+
+        if (patientRepository.existsByDriverLicenseAndIdNot(patientRequestDTO.getDriverLicense(), id)) {
+            throw new DriverLicenseAlreadyExistsException("A patient with this driver license already exists " + patientRequestDTO.getDriverLicense());
         }
 
         patient.setName(patientRequestDTO.getName());
@@ -52,5 +73,9 @@ public class PatientService {
 
         Patient updatedPatient = patientRepository.save(patient);
         return PatientMapper.toDTO(updatedPatient);
+    }
+
+    public void deletePatient(UUID id) {
+        patientRepository.deleteById(id);
     }
 }

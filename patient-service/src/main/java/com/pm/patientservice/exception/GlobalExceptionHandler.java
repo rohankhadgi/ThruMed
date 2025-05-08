@@ -36,6 +36,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    @ExceptionHandler(DriverLicenseAlreadyExistsException.class)
+    public ResponseEntity<Map<String,String>> handleDriverLicenseAlreadyExistsException(
+            DriverLicenseAlreadyExistsException ex) {
+
+        log.warn("Driver license already exists: {}", ex.getMessage());
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Driver license already exists");
+        return ResponseEntity.badRequest().body(errors);
+    }
+
     @ExceptionHandler(PatientNotFoundException.class)
     public ResponseEntity<Map<String,String>> handlePatientNotFoundException(
             PatientNotFoundException ex) {
