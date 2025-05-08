@@ -1,10 +1,7 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" align="center" width="30%">
 </p>
-<p align="center"><h1 align="center">THRUMED</h1></p>
-<p align="center">
-	<em><code>❯ REPLACE-ME</code></em>
-</p>
+<p align="center"><h1 align="center">ThruMed</h1></p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/rohankhadgi/ThruMed?style=social&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
 	<img src="https://img.shields.io/github/last-commit/rohankhadgi/ThruMed?style=social&logo=git&logoColor=white&color=0080ff" alt="last-commit">
@@ -128,7 +125,7 @@
 
 ### 📂 Project Index
 <details open>
-	<summary><b><code>THRUMED/</code></b></summary>
+	<summary><b><code>ThruMed/</code></b></summary>
 	<details> <!-- __root__ Submodule -->
 		<summary><b>__root__</b></summary>
 		<blockquote>
