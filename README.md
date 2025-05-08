@@ -3,16 +3,17 @@
 </p>
 <p align="center"><h1 align="center">ThruMed</h1></p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/rohankhadgi/ThruMed?style=social&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/rohankhadgi/ThruMed?style=social&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/rohankhadgi/ThruMed?style=social&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/rohankhadgi/ThruMed?style=social&color=0080ff" alt="repo-language-count">
+	<em><code>❯ REPLACE-ME</code></em>
 </p>
-<p align="center">Built with the tools and technologies:</p>
 <p align="center">
-	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=social&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
-	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=social&logo=Docker&logoColor=white" alt="Docker">
-	<img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=social&logo=openjdk&logoColor=white" alt="java">
+	<img src="https://img.shields.io/github/license/rohankhadgi/ThruMed?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/rohankhadgi/ThruMed?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/rohankhadgi/ThruMed?style=default&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/rohankhadgi/ThruMed?style=default&color=0080ff" alt="repo-language-count">
+</p>
+<p align="center">
+</p>
+<p align="center">
 </p>
 <br>
 
