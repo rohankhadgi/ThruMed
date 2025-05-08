@@ -838,7 +838,7 @@ Install ThruMed using one of the following methods:
 ❯ docker build -t <service-name>:latest -f /<service-path/Dockerfile
 ```
 
-3. Pull all required docker images:
+4. Pull all required docker images:
 
 
 **Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
@@ -852,6 +852,7 @@ Install ThruMed using one of the following methods:
 
 ### 🤖 Usage
 Launch a New LocalStack Container with the following envrionment variables:
+
 - Name: localstack
 - Env Vars:
 	- Name: LOCALSTACK_AUTH_TOKEN
@@ -863,7 +864,6 @@ Run the LocalStack.java file to generate the localstack.template.json file.
 
 Run the application using the following command:
 ```sh
->
 ❯ ./infrastructure/localstack-deploy.sh
 ```
 
@@ -877,6 +877,7 @@ Run the application using the following command:
 	- /patient-service/create-patient.http to create a new patient
 	- /patient-service/update-patient.http to update an existing patient
 	- /patient-service/delete-patient.http to delete a patient
+
 Additionally, check the logs in the docker containers using the following command: 
 ```sh
 ❯ docker logs <service-name>
